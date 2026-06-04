@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            width: 300px;
+            padding: 15px;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #dc2626;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .header h1 {
+            margin: 0;
+            color: #dc2626;
+            font-size: 18px;
+        }
+        .status {
+            background: #f3f4f6;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .status.online {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .status.offline {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        button {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 10px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧠 MindMirror Pro</h1>
+    </div>
+    
+    <div id="status" class="status">Checking backend...</div>
+    
+    <button id="refreshBtn" class="btn-primary">🔄 Refresh Stats</button>
+    <div id="stats" style="font-size: 12px; text-align: center; margin-top: 10px;">
+        Loading...
+    </div>
+    
+    <div class="footer">
+        Everything runs locally | Privacy-first
+    </div>
+    
+    <script src="popup.js"></script>
+</body>
+</html>

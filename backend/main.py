@@ -149,10 +149,10 @@ async def analyze_text(
     try:
         logger.info(f"Analyzing text from {request.platform} (length: {len(request.text)})")
         
-        # TODO: Uncomment when models are ready
-        # sentiment = sentiment_analyzer.analyze(request.text)
-        # emotions = emotion_detector.analyze(request.text)
-        # manipulation = manipulation_detector.analyze(request.text)
+        
+        sentiment = sentiment_analyzer.analyze(request.text)
+        emotions = emotion_detector.analyze(request.text)
+        manipulation = manipulation_detector.analyze(request.text)
         
         # Temporary mock response (remove when models are ready)
         sentiment = {"score": 0.5, "label": "neutral", "confidence": 0.8}
@@ -220,7 +220,7 @@ async def get_other_side(
 ):
     """Get counter-perspectives using RAG"""
     try:
-        # TODO: Uncomment when FAISS is ready
+        
         perspectives = perspective_store.find_counter_perspectives(
             request.text, 
             request.limit
