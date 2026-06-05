@@ -16,7 +16,7 @@ from auth import verify_api_key, rate_limit
 from models.sentiment import SentimentAnalyzer
 from models.emotion import EmotionDetector
 from models.manipulation import ManipulationDetector
-from rag.vector_store import CounterPerspectiveStore
+# from rag.vector_store import CounterPerspectiveStore
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
