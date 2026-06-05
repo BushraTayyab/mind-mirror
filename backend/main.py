@@ -107,7 +107,7 @@ class OtherSideRequest(BaseModel):
 init_database()
 logger.info("✅ Database initialized")
 
-Initialize models (uncomment when ready)
+
 try:
     sentiment_analyzer = SentimentAnalyzer()
     emotion_detector = EmotionDetector()

@@ -4,7 +4,7 @@ const API_BASE_URL = 'http://127.0.0.1:8000';  // Use 127.0.0.1 not localhost
 
 // IMPORTANT: Use the SAME API key from your backend/.env
 // If your backend/.env has API_KEY=test123456789, use that
-const API_KEY = 'test123456789';  // ← CHANGE THIS to your actual API key
+const API_KEY = 'mmSLNJafkiI34ktGzl5rqgnreZr_sQa5S173AZ9H7HY';  // ← CHANGE THIS to your actual API key
 
 const api = axios.create({
   baseURL: API_BASE_URL,
