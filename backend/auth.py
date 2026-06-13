@@ -47,7 +47,9 @@ def verify_api_key_query(api_key: str = None):
     
     return api_key
 
-def rate_limit(request: Request):
+# In backend/auth.py - REPLACE the rate_limit function with this:
+
+async def rate_limit(request: Request):
     """Rate limiting middleware"""
     client_ip = request.client.host if request.client else "unknown"
     now = time()
@@ -65,7 +67,7 @@ def rate_limit(request: Request):
     
     # Add current request
     client_requests.append(now)
-    return True
+    return True  # This returns a boolean, not an awaitable
 
 
 def rotate_api_key():

@@ -1,55 +1,40 @@
-// Check backend status
-async function checkStatus() {
-    const statusDiv = document.getElementById('status');
-    
-    try {
-        const response = await fetch('http://127.0.0.1:8000/api/health');
-        if (response.ok) {
-            statusDiv.textContent = '✅ Backend Connected';
-            statusDiv.className = 'status online';
-            return true;
-        }
-    } catch (error) {
-        statusDiv.textContent = '❌ Backend Offline (Run: python main.py)';
-        statusDiv.className = 'status offline';
-        return false;
-    }
-}
+const API_URL = 'http://127.0.0.1:8000';
+const API_KEY = 'YOUR_API_KEY';
 
-// Load stats
 async function loadStats() {
+    const statusDiv = document.getElementById('status');
     const statsDiv = document.getElementById('stats');
     
     try {
-        // Get API key from config (simplified - you'd need to import)
-        const response = await fetch('http://127.0.0.1:8000/api/stats', {
-            headers: {
-                'Authorization': 'Bearer test123456789'  // Update with your key
-            }
-        });
-        
-        if (response.ok) {
-            const stats = await response.json();
-            statsDiv.innerHTML = `
-                <div style="margin-top: 8px;">
-                    <div>📊 Analyzed: ${stats.weekly_total || 0} posts</div>
-                    <div>⚠️ Manipulative: ${stats.weekly_manipulative || 0}</div>
-                    <div>🎯 Top tactic: ${stats.top_manipulation || 'None'}</div>
-                </div>
-            `;
+        const health = await fetch(`${API_URL}/api/health`);
+        if (health.ok) {
+            statusDiv.innerHTML = '✅ Backend Connected';
+            statusDiv.className = 'status online';
         } else {
-            statsDiv.innerHTML = 'Failed to load stats';
+            throw new Error('Health check failed');
         }
-    } catch (error) {
-        statsDiv.innerHTML = 'Cannot connect to backend';
+        
+        const res = await fetch(`${API_URL}/api/stats`, {
+            headers: { 'Authorization': `Bearer ${API_KEY}` }
+        });
+        const stats = await res.json();
+        
+        statsDiv.innerHTML = `
+            <div class="stat-row"><strong>Total Analyzed:</strong> ${stats.weekly_total || 0}</div>
+            <div class="stat-row"><strong>Manipulative:</strong> <span style="color:#dc2626">${stats.weekly_manipulative || 0}</span></div>
+            <div class="stat-row"><strong>Rate:</strong> ${Math.round((stats.manipulation_rate || 0) * 100)}%</div>
+            <div class="stat-row"><strong>Top Tactic:</strong> ${stats.top_manipulation || 'None'}</div>
+        `;
+    } catch (err) {
+        statusDiv.innerHTML = '❌ Backend Offline';
+        statusDiv.className = 'status offline';
+        statsDiv.innerHTML = '<div class="stat-row">Failed to load stats</div>';
     }
 }
 
-// Refresh button
-document.getElementById('refreshBtn').addEventListener('click', () => {
-    loadStats();
+document.getElementById('refreshBtn').addEventListener('click', loadStats);
+document.getElementById('dashboardBtn').addEventListener('click', () => {
+    chrome.tabs.create({ url: 'http://127.0.0.1:5173' });
 });
 
-// Load on open
-checkStatus();
 loadStats();

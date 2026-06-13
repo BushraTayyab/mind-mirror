@@ -51,3 +51,45 @@ build/
 # Local configuration
 local_settings.py
 config.local.js
+# Add these to your .gitignore:
+
+# Node modules (dashboard)
+node_modules/
+dashboard/node_modules/
+
+# Vite build output
+dashboard/dist/
+
+# Python egg files
+*.egg
+*.egg-info/
+
+# Environment variables backup
+.env.backup
+.env.*.backup
+
+# Chrome extension generated files
+extension/*.crx
+extension/*.pem
+extension/*.key
+
+# Database backups
+*.db.backup
+*.db-shm
+*.db-wal
+
+# Coverage reports
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+
+# Jupyter notebooks (if any)
+.ipynb_checkpoints/
+*.ipynb
+
+# VS Code settings (if you want to share)
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json

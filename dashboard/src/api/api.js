@@ -1,18 +1,15 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://127.0.0.1:8000';  // Use 127.0.0.1 not localhost
-
-// IMPORTANT: Use the SAME API key from your backend/.env
-// If your backend/.env has API_KEY=test123456789, use that
-const API_KEY = 'mmSLNJafkiI34ktGzl5rqgnreZr_sQa5S173AZ9H7HY';  // ← CHANGE THIS to your actual API key
+// !!! IMPORTANT: Use the SAME key as backend/.env !!!
+const API_KEY = 'your_api_key_here';
 
 const api = axios.create({
-  baseURL: API_BASE_URL,
-  timeout: 10000,
+  baseURL: 'http://127.0.0.1:8000',
   headers: {
-    'Authorization': `Bearer ${API_KEY}`,  // ← ADD THIS LINE
+    'Authorization': `Bearer ${API_KEY}`,
     'Content-Type': 'application/json',
   },
+  timeout: 10000,
 });
 
 export const getHistory = async (limit = 100) => {
@@ -20,7 +17,7 @@ export const getHistory = async (limit = 100) => {
     const response = await api.get('/api/history', { params: { limit } });
     return response.data;
   } catch (error) {
-    console.error('Error fetching history:', error);
+    console.error('Error fetching history:', error.response?.data || error.message);
     return { history: [], count: 0 };
   }
 };
@@ -30,7 +27,7 @@ export const getWeeklyReport = async () => {
     const response = await api.get('/api/weekly-report');
     return response.data;
   } catch (error) {
-    console.error('Error fetching weekly report:', error);
+    console.error('Error fetching weekly report:', error.response?.data || error.message);
     return { report: null, sentiment_trend: [] };
   }
 };
@@ -40,19 +37,17 @@ export const getStats = async () => {
     const response = await api.get('/api/stats');
     return response.data;
   } catch (error) {
-    console.error('Error fetching stats:', error);
+    console.error('Error fetching stats:', error.response?.data || error.message);
     return {};
   }
 };
 
-// Add health check function (useful for debugging)
 export const checkHealth = async () => {
   try {
-    // Health endpoint doesn't require auth
-    const response = await axios.get(`${API_BASE_URL}/api/health`);
+    const response = await axios.get('http://127.0.0.1:8000/api/health');
     return response.data;
   } catch (error) {
-    console.error('Backend health check failed:', error);
+    console.error('Health check failed:', error.message);
     return null;
   }
 };
