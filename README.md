@@ -214,4 +214,6 @@ Contributions are welcome! Please:
 If this project helped you, please give it a star ⭐ on GitHub!
 
 Built with 🧠 and ☕ by Bushra Tayyab
+### Featured Work: Analytics Implementation
+Implemented the `AnalyticsDashboard.jsx` component using React and Recharts to fetch metrics from `http://localhost:8000/api/analytics/weekly` and visualize the Emotion Timeline and Echo Chamber Index.
 
